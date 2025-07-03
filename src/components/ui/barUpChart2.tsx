@@ -1,97 +1,241 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts"
+import * as React from "react"
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis, ResponsiveContainer } from "recharts"
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card"
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
+    ChartConfig,
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent,
 } from "@/components/ui/chart"
 
-export const description = "A bar chart with a label"
+import { supabase } from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
+import { format, parseISO, subDays, eachDayOfInterval } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
-const chartData = [
-  { month: "Janeiro", desktop: 186 },
-  { month: "Fevereiro", desktop: 220 },
-  { month: "Março", desktop: 237 },
-  { month: "Abril", desktop: 270 },
-  { month: "Maio", desktop: 209 },
-  { month: "Junho", desktop: 290 },
-  { month: "Julho", desktop: 214 },
-  { month: "Agosto", desktop: 170 },
-  { month: "Setembro", desktop: 320 },
-  { month: "Novembro", desktop: 420 },
-  { month: "Dezembro", desktop: 520 },
-]
+// Interface para os dados do lançamento
+interface Lancamento {
+    id: string;
+    user_id: string;
+    data: string; // Formato desolate-MM-DD
+    descricao: string;
+    valor: number;
+    categoria: string;
+    tipo: "receita" | "despesa";
+    observacoes: string;
+}
 
+// Tipo para os dados do gráfico de barras diárias
+interface DailyChartDataItem {
+    date: string; // Data formatada como string 'yyyy-MM-dd'
+    entrada: number; // Total de entrada para aquele dia
+}
+
+// Configuração do gráfico
 const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "var(--chart-1)",
-  },
-} satisfies ChartConfig
+    entrada: {
+        label: "Entradas Diárias",
+        color: "var(--chart-1)", // Usando a primeira cor do shadcn/ui chart
+    },
+} satisfies ChartConfig;
 
-export function ChartBarLabel() {
-  return (
-    <Card className="h-[30rem]">
-      <CardHeader className="flex justify-between">
+export function DailyEntriesBarChart() {
+    const [chartData, setChartData] = React.useState<DailyChartDataItem[]>([]);
+    const [isLoading, setIsLoading] = React.useState<boolean>(true);
+    const [error, setError] = React.useState<string | null>(null);
 
-        <div>
-          
-        <CardTitle>Relatório anual</CardTitle>
-        <CardDescription>2025</CardDescription>
-        </div>
+    const router = useRouter();
 
-        <div>
-          <div className="flex gap-2 leading-none font-medium">
-          Crescimento anual 5.2%. <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="text-muted-foreground leading-none">
-          Soma de todos lançamento do ano.
-        </div>
-        </div>
-      </CardHeader>
-      <CardContent className="mt-10">
-        <ChartContainer config={chartConfig} className=" h-80 w-full">
-          <BarChart
-            accessibilityLayer
-            data={chartData}
-            margin={{
-              top: 20,
-            }}
-          >
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8}>
-              <LabelList
-                position="top"
-                offset={12}
-                className="fill-foreground"
-                fontSize={12}
-              />
-            </Bar>
-          </BarChart>
-        </ChartContainer>
-      </CardContent>
-    </Card>
-  )
+    // Função auxiliar para formatar o valor como moeda (BRL)
+    const formatCurrency = (value: number): string => {
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(value);
+    };
+
+    // Função para buscar e processar os dados do Supabase
+    const fetchAndProcessDailyEntries = React.useCallback(async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const {
+                data: { session },
+                error: sessionError,
+            } = await supabase.auth.getSession();
+
+            if (sessionError || !session) {
+                console.error("Sessão não encontrada. Redirecionando para login.");
+                router.push("/login");
+                return;
+            }
+
+            const userId = session.user.id;
+
+            // --- Gerenciamento de Datas Otimizado para Tipagem ---
+            const todayDate = new Date(); // Objeto Date atual
+            const thirtyDaysAgoDate = subDays(todayDate, 30); // Objeto Date 30 dias atrás
+
+            // Formatar para string ISO para a query do Supabase
+            const startDateString = format(thirtyDaysAgoDate, 'yyyy-MM-dd');
+            const endDateString = format(todayDate, 'yyyy-MM-dd');
+
+            const { data, error: fetchError } = await supabase
+                .from("lancamentos_diarios")
+                .select("data, valor, tipo")
+                .eq("user_id", userId)
+                .eq("tipo", "receita")
+                .gte("data", startDateString) // Usar string formatada para Supabase
+                .lte("data", endDateString)
+                .order("data", { ascending: true });
+
+            if (fetchError) {
+                throw fetchError;
+            }
+
+            const rawLancamentos = data as Pick<Lancamento, 'data' | 'valor' | 'tipo'>[];
+
+            const aggregatedData: { [key: string]: number } = {};
+            rawLancamentos.forEach((lancamento) => {
+                const valorNumerico = typeof lancamento.valor === 'number' ? lancamento.valor : parseFloat(String(lancamento.valor));
+                if (isNaN(valorNumerico)) {
+                    console.warn(`Valor inválido para lançamento: ${lancamento.valor}`);
+                    return;
+                }
+                aggregatedData[lancamento.data] = (aggregatedData[lancamento.data] || 0) + valorNumerico;
+            });
+
+            // Preenche lacunas de dias sem entradas com valor 0
+            const allDaysInPeriod = eachDayOfInterval({
+                start: thirtyDaysAgoDate, // Passar objetos Date para date-fns
+                end: todayDate           // Passar objetos Date para date-fns
+            });
+
+            const processedChartData: DailyChartDataItem[] = allDaysInPeriod.map(day => {
+                const dateKey = format(day, 'yyyy-MM-dd'); // Formatar para a chave no objeto
+                return {
+                    date: dateKey,
+                    entrada: aggregatedData[dateKey] || 0,
+                };
+            });
+
+            setChartData(processedChartData);
+
+        } catch (err: any) {
+            console.error("Erro ao buscar ou processar entradas diárias:", err.message);
+            setError("Erro ao carregar dados do gráfico: " + err.message);
+            setChartData([]);
+        } finally {
+            setIsLoading(false);
+        }
+    }, [router]);
+
+    React.useEffect(() => {
+        fetchAndProcessDailyEntries();
+    }, [fetchAndProcessDailyEntries]);
+
+    const totalEntradas = React.useMemo(() => {
+        return chartData.reduce((acc, item) => acc + item.entrada, 0);
+    }, [chartData]);
+
+    return (
+        <Card className="h-[30rem] flex flex-col">
+            <CardHeader className="flex flex-row justify-between items-start pb-0">
+                <div className="grid flex-1 gap-1">
+                    <CardTitle>Entradas Diárias</CardTitle>
+                    <CardDescription>Visão geral das entradas dos últimos 30 dias.</CardDescription>
+                </div>
+                <div className="flex flex-col items-end gap-2 text-sm">
+                    <div className="flex gap-2 leading-none font-medium text-right">
+                        Total no período: {formatCurrency(totalEntradas)}
+                    </div>
+                    <div className="text-muted-foreground leading-none text-right">
+                        Soma de todas as entradas dos últimos 30 dias.
+                    </div>
+                </div>
+            </CardHeader>
+            <CardContent className="flex-1 mt-10">
+                {isLoading ? (
+                    <div className="flex items-center justify-center h-full text-white">Carregando dados do gráfico...</div>
+                ) : error ? (
+                    <div className="flex items-center justify-center h-full text-red-500">{error}</div>
+                ) : chartData.length === 0 ? (
+                    <div className="flex items-center justify-center h-full text-gray-400">Nenhuma entrada encontrada para o período selecionado.</div>
+                ) : (
+                    <ChartContainer config={chartConfig} className="h-full w-full">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <BarChart
+                                accessibilityLayer
+                                data={chartData}
+                                margin={{
+                                    top: 20,
+                                    right: 0,
+                                    left: 0,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid vertical={false} />
+                                <XAxis
+                                    dataKey="date"
+                                    tickLine={false}
+                                    axisLine={false}
+                                    tickMargin={10}
+                                    tickFormatter={(value) => format(parseISO(value), 'dd/MM', { locale: ptBR })}
+                                    minTickGap={20}
+                                />
+                                <YAxis
+                                    tickFormatter={(value: any) => formatCurrency(value)}
+                                    axisLine={false}
+                                    tickLine={false}
+                                    tickMargin={8}
+                                    className="text-xs"
+                                />
+                                <ChartTooltip
+                                    cursor={false}
+                                    content={
+                                        <ChartTooltipContent
+                                            labelFormatter={(value) => {
+                                                const dateValue = typeof value === 'string' ? parseISO(value) : new Date(value);
+                                                return format(dateValue, 'dd/MM/yyyy', { locale: ptBR });
+                                            }}
+                                            formatter={(value: any, name: any) => {
+                                                const formattedValue = typeof value === 'number' ? formatCurrency(value) : String(value);
+                                                const chartLabel = chartConfig[name as keyof typeof chartConfig]?.label || String(name);
+                                                return [formattedValue, chartLabel];
+                                            }}
+                                            indicator="dot"
+                                        />
+                                    }
+                                />
+                                <Bar
+                                    dataKey="entrada"
+                                    fill="var(--color-entrada)"
+                                    radius={8}
+                                >
+                                    <LabelList
+                                        position="top"
+                                        offset={12}
+                                        className="fill-foreground"
+                                        fontSize={12}
+                                        formatter={(value: any) => formatCurrency(value)}
+                                    />
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </ChartContainer>
+                )}
+            </CardContent>
+        </Card>
+    )
 }

@@ -1,16 +1,11 @@
 import FormInserir from "@/components/formInserir";
 import HeaderAuth from "@/components/headerAuth";
-import { ChartLineLabel } from "@/components/lineChart";
 import { LancamentosTable } from "@/components/listagem";
-import { ChartBarInteractive } from "@/components/ui/barFull";
-import { ChartBarLabelCustom } from "@/components/ui/barRightChart";
-import { ChartBarMultiple } from "@/components/ui/barUpChart";
-import { ChartBarLabel } from "@/components/ui/barUpChart2";
-import { ChartAreaInteractive } from "@/components/ui/pieAreaChart";
+import { DailyEntriesBarChart } from "@/components/ui/barUpChart2";
+import { FaturamentoAreaChart } from "@/components/ui/pieAreaChart";
 
-import { ChartPieInteractive } from "@/components/ui/pieChartSelect";
-import { ChartRadialShape } from "@/components/ui/radialChart1";
-import { ChartRadialLabel } from "@/components/ui/radialChart2";
+import { TotalRevenueRadialChart } from "@/components/ui/radialChart1";
+import { FaturamentoAreaChart2 } from "@/components/userHistory";
 export default function Home() {
 
   return (
@@ -42,43 +37,19 @@ export default function Home() {
       <div className="flex flex-col md:flex-row gap-5 mb-2 mt-2">
         
         <div className="flex-1 min-w-[46%]">
-          <ChartPieInteractive />
+          <DailyEntriesBarChart />
         </div>
         <div className="flex-1 min-w-[46%]">
-          <ChartRadialLabel />
-        </div>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-5 mb-2">
-        <div className="flex-1 min-w-[46%]">
-          <ChartBarMultiple />
-        </div>
-        <div className="flex-1 min-w-[46%]">
-          <ChartBarLabel />
-        </div>
-      </div>
-
-      <div className="flex flex-col md:flex-row gap-5 mb-2">
-
-        <div className="flex-1 min-w-[33%]">
-          <ChartBarLabelCustom />
-        </div>
-
-        <div className="flex-1 min-w-[33%]">
-          <ChartRadialShape />
-        </div>
-
-        <div className="flex-1 min-w-[33%]">
-          <ChartLineLabel />
+          <TotalRevenueRadialChart />
         </div>
       </div>
 
       <div className="">
-        <ChartAreaInteractive />
+        <FaturamentoAreaChart />
       </div>
 
       <div className="">
-        <ChartBarInteractive />
+        <FaturamentoAreaChart2 />
       </div>
     </div>
   );
