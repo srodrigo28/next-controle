@@ -231,7 +231,6 @@ export function SideBar() {
         cidade: profile.cidade,
         estado: profile.estado,
         avatar_url: newAvatarUrl, // Atualiza com a nova URL do avatar
-        // updated_at: new Date().toISOString(), // REMOVIDO: Esta coluna não existe na sua tabela, causando o erro
       };
 
       const { error: updateError } = await supabase
@@ -290,102 +289,115 @@ export function SideBar() {
           <MdMenuOpen size={50} />
         </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="flex flex-col w-full sm:max-w-sm"> {/* Adicionado w-full e sm:max-w-sm para responsividade */}
         <SheetHeader>
-          <SheetTitle>Perfil</SheetTitle>
+          <div className="flex justify-between items-center"> {/* Flexbox para alinhar título e botão */}
+            <SheetTitle>Perfil</SheetTitle>
+            {/* Botão de fechar usando SheetClose para funcionalidade correta */}
+            <SheetClose asChild>
+              <Button 
+                variant="ghost" // Usar variant ghost para um botão mais discreto
+                className="bg-red-500 text-white px-2 py-1 rounded-full md:hidden hover:bg-red-600" // Estilos para mobile
+                aria-label="Fechar"
+              >
+                X
+              </Button>
+            </SheetClose>
+          </div>
           <SheetDescription>
             Mantenha suas informações atualizadas.
           </SheetDescription>
         </SheetHeader>
-        {/* Formulário para edição */}
-        <form onSubmit={updateProfile} className="grid flex-1 auto-rows-min gap-6 px-4 py-4">
-          {/* Mensagens de erro e sucesso */}
-          {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
-          {success && <p className="text-green-500 text-sm mb-2">{success}</p>}
+        {/* Container para o formulário com scroll */}
+        <div className="flex-1 overflow-y-auto px-4 py-4"> {/* flex-1 para ocupar espaço restante, overflow-y-auto para scroll */}
+          <form onSubmit={updateProfile} className="grid gap-6"> {/* Removido flex-1 e auto-rows-min daqui */}
+            {/* Mensagens de erro e sucesso */}
+            {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+            {success && <p className="text-green-500 text-sm mb-2">{success}</p>}
 
-          {/* Seção de Avatar */}
-          <div className="mb-4 flex flex-col items-center">
-            <Label htmlFor="avatar-upload" className="block text-sm text-black font-medium mb-2">Avatar</Label>
-            <div className="w-32 h-32 rounded-full overflow-hidden mb-4 border border-gray-300 flex items-center justify-center">
-              <Image 
-                src={preview || profile.avatar_url || "/placeholder-avatar.png"} 
-                alt="Avatar" 
-                className="w-full h-full object-cover" 
-                width={128} 
-                height={128} 
-                priority // Adicionado priority para LCP se for o caso
+            {/* Seção de Avatar */}
+            <div className="mb-4 flex flex-col items-center">
+              <Label htmlFor="avatar-upload" className="block text-sm text-black font-medium mb-2">Avatar</Label>
+              <div className="w-32 h-32 rounded-full overflow-hidden mb-4 border border-gray-300 flex items-center justify-center">
+                <Image 
+                  src={preview || profile.avatar_url || "/placeholder-avatar.png"} 
+                  alt="Avatar" 
+                  className="w-full h-full object-cover" 
+                  width={128} 
+                  height={128} 
+                  priority // Adicionado priority para LCP se for o caso
+                />
+              </div>
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleFileChange} 
+                id="avatar-upload"
+                className="text-sm cursor-pointer file:mr-4 file:py-2 file:px-4
+                           file:rounded-full file:border-0 file:text-sm file:font-semibold
+                           file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100" 
+                disabled={isSaving}
               />
             </div>
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handleFileChange} 
-              id="avatar-upload"
-              className="text-sm cursor-pointer file:mr-4 file:py-2 file:px-4
-                         file:rounded-full file:border-0 file:text-sm file:font-semibold
-                         file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100" 
-              disabled={isSaving}
-            />
-          </div>
 
-          <div className="grid gap-3">
-            <Label htmlFor="name">Nome completo</Label>
-            <Input 
-              id="name" // ID corresponde à chave no estado 'profile'
-              value={profile.name} 
-              onChange={handleChange} 
-              disabled={isSaving}
-            />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="email">E-mail</Label>
-            <Input 
-              id="email" 
-              value={profile.email} 
-              onChange={handleChange} 
-              type="email"
-              disabled={isSaving}
-            />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="telefone">Telefone</Label>
-            <Input 
-              id="telefone" 
-              maxLength={15}
-              value={profile.telefone} 
-              onChange={handleTelefoneChange} // Handler específico para telefone
-              type="tel"
-              disabled={isSaving}
-            />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="estado">Estado</Label>
-            <Input 
-              id="estado" 
-              value={profile.estado} 
-              onChange={handleChange} 
-              disabled={isSaving}
-            />
-          </div>
-          <div className="grid gap-3">
-            <Label htmlFor="cidade">Cidade</Label>
-            <Input 
-              id="cidade" 
-              value={profile.cidade} 
-              onChange={handleChange} 
-              disabled={isSaving}
-            />
-          </div>
-
-          <SheetFooter className="mt-4">
-            <Button type="submit" disabled={isSaving}>
-              {isSaving ? "Salvando..." : "Salvar alterações"}
-            </Button>
-            <SheetClose asChild>
-              <Button variant="outline" onClick={handleLogout} disabled={isSaving} className="bg-red-400 hover:bg-red-500 cursor-pointer hover:text-white">Sair do app.</Button>
-            </SheetClose>
-          </SheetFooter>
-        </form>
+            <div className="grid gap-3">
+              <Label htmlFor="name">Nome completo</Label>
+              <Input 
+                id="name" // ID corresponde à chave no estado 'profile'
+                value={profile.name} 
+                onChange={handleChange} 
+                disabled={isSaving}
+              />
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="email">E-mail</Label>
+              <Input 
+                id="email" 
+                value={profile.email} 
+                onChange={handleChange} 
+                type="email"
+                disabled={isSaving}
+              />
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="telefone">Telefone</Label>
+              <Input 
+                id="telefone" 
+                maxLength={15} // Adicionado maxLength para o campo de telefone
+                value={profile.telefone} 
+                onChange={handleTelefoneChange} // Handler específico para telefone
+                type="tel"
+                disabled={isSaving}
+              />
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="estado">Estado</Label>
+              <Input 
+                id="estado" 
+                value={profile.estado} 
+                onChange={handleChange} 
+                disabled={isSaving}
+              />
+            </div>
+            <div className="grid gap-3">
+              <Label htmlFor="cidade">Cidade</Label>
+              <Input 
+                id="cidade" 
+                value={profile.cidade} 
+                onChange={handleChange} 
+                disabled={isSaving}
+              />
+            </div>
+          </form>
+        </div>
+        <SheetFooter className="mt-4">
+          <Button type="submit" disabled={isSaving} onClick={updateProfile}> {/* Botão de submit do formulário */}
+            {isSaving ? "Salvando..." : "Salvar alterações"}
+          </Button>
+          <SheetClose asChild>
+            <Button variant="outline" onClick={handleLogout} disabled={isSaving} className="bg-red-400 hover:bg-red-500 cursor-pointer hover:text-white">Sair do app.</Button>
+          </SheetClose>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
