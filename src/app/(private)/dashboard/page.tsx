@@ -5,12 +5,10 @@ import { ChartBarLabelCustom } from "@/components/ui/barRightChart";
 import { ChartBarMultiple } from "@/components/ui/barUpChart";
 import { ChartBarLabel } from "@/components/ui/barUpChart2";
 import { ChartAreaInteractive } from "@/components/ui/pieAreaChart";
-import { PieCharGrafic } from "@/components/ui/pieCharGrafic";
 
 import { ChartPieInteractive } from "@/components/ui/pieChartSelect";
 import { ChartRadialShape } from "@/components/ui/radialChart1";
 import { ChartRadialLabel } from "@/components/ui/radialChart2";
-import { ChartRadialStacked } from "@/components/ui/radialChartMidium";
 export default function Home() {
 
   return (
@@ -19,38 +17,38 @@ export default function Home() {
       <HeaderAuth />
 
       <div className="flex px-3 md:px-0 items-center justify-between">
-        <div className="w-62 flex flex-col">
-          <h1 className="text-zinc-200 text-3xl">Dashbord</h1>
+        <div className="w-full flex md:flex-row flex-col items-center justify-between">
+          <div className="flex flex-col">
+            <h1 className="text-zinc-200 text-3xl">Dashbord</h1>
           <p className="text-zinc-500">Bem vindo ao Painel de controle</p>
+          </div>
+          <div className="flex gap-3 py-3">
+            <button className="bg-green-500 px-3 w-20 text-slate-700 rounded-sm cursor-pointer">Entrada</button>
+            <button className="bg-red-500 px-3 w-20 rounded-sm cursor-pointer">Saída</button>
+          </div>
         </div>
+        
       </div>
 
-      <div className="flex flex-col md:flex-row gap-5">
-        <div className="flex-1 min-w-[33%]">
+      <div className="flex flex-col md:flex-row gap-5 mb-2 mt-2">
+        <div className="flex-1 min-w-[46%]">
           <ChartPieInteractive />
         </div>
-        <div className="flex-1 min-w-[33%]">
+        <div className="flex-1 min-w-[46%]">
           <ChartRadialLabel />
-        </div>
-
-        <div className="flex-1 min-w-[33%]">
-          <PieCharGrafic />
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-5">
-        <div className="flex-1 min-w-[33%]">
-          <ChartRadialStacked />
-        </div>
-        <div className="flex-1 min-w-[33%]">
+      <div className="flex flex-col md:flex-row gap-5 mb-2">
+        <div className="flex-1 min-w-[46%]">
           <ChartBarMultiple />
         </div>
-        <div className="flex-1 min-w-[33%]">
+        <div className="flex-1 min-w-[46%]">
           <ChartBarLabel />
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-5 mb-5 mt-3">
+      <div className="flex flex-col md:flex-row gap-5 mb-2">
 
         <div className="flex-1 min-w-[33%]">
           <ChartBarLabelCustom />
@@ -64,8 +62,6 @@ export default function Home() {
           <ChartLineLabel />
         </div>
       </div>
-
-      <div className="mt-20 mb-20 hidden" > </div>
 
       <div className="">
         <ChartAreaInteractive />

@@ -253,7 +253,7 @@ export function SideBar() {
         setIsSheetOpen(false); // Fecha a Sheet antes de redirecionar
         router.refresh(); // Força a atualização da rota atual no Next.js
         router.push("/dashboard");
-      }, 3000); // 3000 milissegundos = 3 segundos
+      }, 2000); // 3000 milissegundos = 3 segundos
 
     } catch (err: any) {
       console.error("Erro ao atualizar o perfil:", err.message);
@@ -297,11 +297,9 @@ export function SideBar() {
             <SheetClose asChild>
               <Button 
                 variant="ghost" // Usar variant ghost para um botão mais discreto
-                className="bg-red-500 text-white px-2 py-1 rounded-full md:hidden hover:bg-red-600" // Estilos para mobile
+                className="bg-red-500 text-white px-2 py-1 rounded-full hidden hover:bg-red-600" // Estilos para mobile
                 aria-label="Fechar"
-              >
-                X
-              </Button>
+              > X </Button>
             </SheetClose>
           </div>
           <SheetDescription>

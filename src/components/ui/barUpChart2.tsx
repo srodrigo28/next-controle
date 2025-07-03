@@ -48,7 +48,7 @@ export function ChartBarLabel() {
         <div>
           
         <CardTitle>Relatório anual</CardTitle>
-        <CardDescription>2024</CardDescription>
+        <CardDescription>2025</CardDescription>
         </div>
 
         <div>
@@ -60,8 +60,8 @@ export function ChartBarLabel() {
         </div>
         </div>
       </CardHeader>
-      <CardContent className="mt-20">
-        <ChartContainer config={chartConfig}>
+      <CardContent className="mt-10">
+        <ChartContainer config={chartConfig} className=" h-80 w-full">
           <BarChart
             accessibilityLayer
             data={chartData}
