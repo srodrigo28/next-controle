@@ -253,6 +253,10 @@ export default function FormInserir() {
                       <SelectLabel>Categorias</SelectLabel>
                       <SelectItem value="servico">Serviço</SelectItem>
                       <SelectItem value="vendas">Vendas</SelectItem>
+                      <SelectItem value="casa">Contas Casa</SelectItem>
+                      <SelectItem value="carro">Carro</SelectItem>
+                      <SelectItem value="laser">Laser</SelectItem>
+                      <SelectItem value="investimento">Investimento</SelectItem>
                       <SelectItem value="outros">Outros</SelectItem>
                       {/* Você pode adicionar mais categorias aqui */}
                     </SelectGroup>

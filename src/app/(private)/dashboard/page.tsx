@@ -1,6 +1,7 @@
 import FormInserir from "@/components/formInserir";
 import HeaderAuth from "@/components/headerAuth";
 import { ChartLineLabel } from "@/components/lineChart";
+import { LancamentosTable } from "@/components/listagem";
 import { ChartBarInteractive } from "@/components/ui/barFull";
 import { ChartBarLabelCustom } from "@/components/ui/barRightChart";
 import { ChartBarMultiple } from "@/components/ui/barUpChart";
@@ -34,7 +35,12 @@ export default function Home() {
         
       </div>
 
+      <div className="flex-1 min-w-[100%] mx-auto">
+          <LancamentosTable />
+      </div>
+
       <div className="flex flex-col md:flex-row gap-5 mb-2 mt-2">
+        
         <div className="flex-1 min-w-[46%]">
           <ChartPieInteractive />
         </div>
