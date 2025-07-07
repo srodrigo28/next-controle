@@ -40,8 +40,8 @@ interface DailyChartDataItem {
     entrada: number; // Total de entrada para aquele dia
 }
 
-// Configuração do gráfico
-const chartConfig = {
+// Configuração do gráfico  
+const chartConfig = { /*** comentar aqui */
     entrada: {
         label: "Entradas Diárias",
         color: "var(--chart-1)", // Usando a primeira cor do shadcn/ui chart
