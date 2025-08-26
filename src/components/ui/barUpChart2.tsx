@@ -174,11 +174,11 @@ export function DailyEntriesBarChart() {
                     <div className="flex items-center justify-center h-full text-gray-400">Nenhuma entrada encontrada para o período selecionado.</div>
                 ) : (
                     <ChartContainer config={chartConfig} className="h-full w-full">
-                        <ResponsiveContainer width="100%" height="80%">
+                        <ResponsiveContainer width="100%" height="100%">
                             <BarChart
                                 accessibilityLayer
                                 data={chartData}
-                                className="h-[80%] bg-amber-500"
+                                className="h-[60%]"
                                 margin={{
                                     top: 10,
                                     right: 0,
