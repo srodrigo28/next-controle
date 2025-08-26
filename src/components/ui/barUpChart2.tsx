@@ -186,7 +186,7 @@ export function DailyEntriesBarChart() {
                                     bottom: 10,
                                 }}
                             >
-                                <CartesianGrid vertical={false} />
+                                <CartesianGrid vertical={false} className="bg-amber-400" />
                                 <XAxis
                                     dataKey="date"
                                     tickLine={false}
@@ -200,7 +200,7 @@ export function DailyEntriesBarChart() {
                                     axisLine={false}
                                     tickLine={false}
                                     tickMargin={8}
-                                    className="text-xs bg-amber-400"
+                                    className="text-xs"
                                 />
                                 <ChartTooltip
                                     cursor={false}
