@@ -160,7 +160,7 @@ export function DailyEntriesBarChart() {
                     <div className="flex gap-2 leading-none font-medium text-right">
                         Total no período: {formatCurrency(totalEntradas)}
                     </div>
-                    <div className="text-muted-foreground leading-none text-right">
+                    <div className="text-muted-foreground leading-none text-right md:text-xl">
                         Soma de todas as entradas dos últimos 30 dias.
                     </div>
                 </div>
@@ -194,6 +194,7 @@ export function DailyEntriesBarChart() {
                                     tickMargin={10}
                                     tickFormatter={(value) => format(parseISO(value), 'dd/MM', { locale: ptBR })}
                                     minTickGap={20}
+                                    className="pb-10"
                                 />
                                 <YAxis
                                     tickFormatter={(value: any) => formatCurrency(value)}
@@ -224,6 +225,7 @@ export function DailyEntriesBarChart() {
                                     dataKey="entrada"
                                     fill="var(--color-entrada)"
                                     radius={8}
+                                    className="bg-red-500"
                                 >
                                 <LabelList
                                     position="top"
