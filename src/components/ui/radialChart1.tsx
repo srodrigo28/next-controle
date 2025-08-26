@@ -126,7 +126,7 @@ export function TotalRevenueRadialChart() {
     ];
 
     return (
-        <Card className="flex flex-col md:h-[33rem] h-[20rem]">
+        <Card className="flex flex-col md:h-[33rem] h-[25rem]">
             <CardHeader className="items-center pb-0"> {/* Removido bg-red-500 */}
                 <CardTitle>Total de Receitas</CardTitle>
                 <CardDescription>Soma de todas as entradas registradas.</CardDescription>
@@ -179,7 +179,7 @@ export function TotalRevenueRadialChart() {
                                                     <tspan
                                                         x={viewBox.cx}
                                                         y={viewBox.cy}
-                                                        className="fill-foreground text-xl md:text-2xl font-bold"
+                                                        className="fill-foreground text-xl md:text-xl font-bold"
                                                     >
                                                         {formatCurrency(totalRevenue)} {/* Usa o valor dinâmico */}
                                                     </tspan>
