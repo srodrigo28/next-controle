@@ -20,7 +20,7 @@ export default function Home() {
           <p className="text-zinc-500">Bem vindo ao Painel de controle</p>
           </div>
           <div className="flex gap-3 py-3">
-            <button className="bg-sky-600 px-3 w-20 text-white rounded-sm cursor-pointer">
+            <button className="px-3 w-20 text-white rounded-sm cursor-pointer">
               <FormInserir />
             </button>
             <button className="bg-green-500 px-3 w-20 text-slate-700 rounded-sm cursor-pointer">Entrada</button>
