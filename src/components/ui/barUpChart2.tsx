@@ -153,14 +153,14 @@ export function DailyEntriesBarChart() {
         <Card className="h-[30rem] mb-2 flex flex-col">
             <CardHeader className="flex flex-row justify-between items-start pb-0">
                 <div className="grid flex-1 gap-1">
-                    <CardTitle>Entradas Diárias</CardTitle>
-                    <CardDescription>Visão geral das entradas dos últimos 30 dias.</CardDescription>
+                    <CardTitle className="text-sm md:text-xl">Entradas Diárias</CardTitle>
+                    <CardDescription className="hidden md:block">Visão geral das entradas dos últimos 30 dias.</CardDescription>
                 </div>
                 <div className="flex flex-col items-end gap-2 text-sm">
                     <div className="flex gap-2 leading-none font-medium text-right">
                         Total no período: {formatCurrency(totalEntradas)}
                     </div>
-                    <div className="text-muted-foreground leading-none text-right">
+                    <div className="text-muted-foreground leading-none text-right text-sm md:text-xl">
                         Soma de todas as entradas dos últimos 30 dias.
                     </div>
                 </div>
