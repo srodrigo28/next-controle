@@ -178,7 +178,7 @@ export function DailyEntriesBarChart() {
                             <BarChart
                                 accessibilityLayer
                                 data={chartData}
-                                className="h-[60%]"
+                                className="h-[20rem] bg-green-400"
                                 margin={{
                                     top: 10,
                                     right: 0,
