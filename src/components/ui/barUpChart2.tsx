@@ -179,6 +179,7 @@ export function DailyEntriesBarChart() {
                                 accessibilityLayer
                                 data={chartData}
                                 className="h-[20rem]"
+                                height={200}
                                 margin={{
                                     top: 10,
                                     right: 0,
@@ -186,7 +187,7 @@ export function DailyEntriesBarChart() {
                                     bottom: 10,
                                 }}
                             >
-                                <CartesianGrid vertical={false} className="bg-red-400" />
+                                <CartesianGrid vertical={false} />
                                 <XAxis
                                     dataKey="date"
                                     tickLine={false}
