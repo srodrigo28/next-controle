@@ -165,7 +165,7 @@ export function DailyEntriesBarChart() {
                     </div>
                 </div>
             </CardHeader>
-            <CardContent className="flex-1 mt-5 pb-10 bg-amber-500">
+            <CardContent className="flex-1 mt-5 pb-10 ">
                 {isLoading ? (
                     <div className="flex items-center justify-center h-full text-white">Carregando dados do gráfico...</div>
                 ) : error ? (
