@@ -200,7 +200,7 @@ export function DailyEntriesBarChart() {
                                     axisLine={false}
                                     tickLine={false}
                                     tickMargin={8}
-                                    className="text-xs"
+                                    className="text-xs bg-amber-600"
                                 />
                                 <ChartTooltip
                                     cursor={false}
@@ -225,13 +225,13 @@ export function DailyEntriesBarChart() {
                                     fill="var(--color-entrada)"
                                     radius={8}
                                 >
-                                    <LabelList
-                                        position="top"
-                                        offset={12}
-                                        className="fill-foreground !hidden"
-                                        fontSize={12}
-                                        formatter={(value: any) => formatCurrency(value)}
-                                    />
+                                <LabelList
+                                    position="top"
+                                    offset={12}
+                                    className="fill-foreground !hidden"
+                                    fontSize={12}
+                                    formatter={(value: any) => formatCurrency(value)}
+                                />
                                 </Bar>
                             </BarChart>
                         </ResponsiveContainer>
