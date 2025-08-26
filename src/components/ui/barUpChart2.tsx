@@ -200,7 +200,7 @@ export function DailyEntriesBarChart() {
                                     axisLine={false}
                                     tickLine={false}
                                     tickMargin={8}
-                                    className="text-xs bg-amber-600"
+                                    className="text-xs"
                                 />
                                 <ChartTooltip
                                     cursor={false}
