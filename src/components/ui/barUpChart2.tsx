@@ -154,7 +154,7 @@ export function DailyEntriesBarChart() {
             <CardHeader className="flex flex-row justify-between items-start pb-0">
                 <div className="grid flex-1 gap-1">
                     <CardTitle className="text-sm md:text-xl">Entradas Diárias</CardTitle>
-                    <CardDescription className="hidden md:block">Visão geral das entradas dos últimos 30 dias.</CardDescription>
+                    <CardDescription className="hidden md:block text-md">Visão geral das entradas dos últimos 30 dias.</CardDescription>
                 </div>
                 <div className="flex flex-col items-end gap-2 text-sm">
                     <div className="flex gap-2 leading-none font-medium text-right">
