@@ -126,7 +126,7 @@ export function TotalRevenueRadialChart() {
     ];
 
     return (
-        <Card className="flex flex-col md:h-[37rem] h-[20rem]">
+        <Card className="flex flex-col md:h-[33rem] h-[20rem]">
             <CardHeader className="items-center pb-0"> {/* Removido bg-red-500 */}
                 <CardTitle>Total de Receitas</CardTitle>
                 <CardDescription>Soma de todas as entradas registradas.</CardDescription>
