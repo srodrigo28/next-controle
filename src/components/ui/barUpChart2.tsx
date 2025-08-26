@@ -160,7 +160,7 @@ export function DailyEntriesBarChart() {
                     <div className="flex gap-2 leading-none font-medium text-right">
                         Total no período: {formatCurrency(totalEntradas)}
                     </div>
-                    <div className="text-muted-foreground leading-none text-right md:text-xl">
+                    <div className="text-muted-foreground leading-none text-right">
                         Soma de todas as entradas dos últimos 30 dias.
                     </div>
                 </div>
