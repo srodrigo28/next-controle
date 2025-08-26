@@ -179,7 +179,7 @@ export function TotalRevenueRadialChart() {
                                                     <tspan
                                                         x={viewBox.cx}
                                                         y={viewBox.cy}
-                                                        className="fill-foreground text-2xl md:text-4xl font-bold"
+                                                        className="fill-foreground text-xl md:text-2xl font-bold"
                                                     >
                                                         {formatCurrency(totalRevenue)} {/* Usa o valor dinâmico */}
                                                     </tspan>
