@@ -39,7 +39,7 @@ export default function Home() {
         <div className="flex-1 min-w-[46%]">
           <DailyEntriesBarChart />
         </div>
-        <div className="flex-1 min-w-[46%] max-w-[600px]">
+        <div className="flex-1 min-w-[46%] max-w-[400px]">
           <TotalRevenueRadialChart />
         </div>
       </div>

@@ -226,7 +226,7 @@ export function DailyEntriesBarChart() {
                                     <LabelList
                                         position="top"
                                         offset={12}
-                                        className="fill-foreground"
+                                        className="fill-foreground hidden"
                                         fontSize={12}
                                         formatter={(value: any) => formatCurrency(value)}
                                     />
