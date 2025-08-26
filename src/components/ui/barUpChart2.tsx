@@ -200,13 +200,13 @@ export function DailyEntriesBarChart() {
                                     axisLine={false}
                                     tickLine={false}
                                     tickMargin={8}
-                                    className="text-xs"
+                                    className="text-xs bg-amber-400"
                                 />
                                 <ChartTooltip
                                     cursor={false}
                                     content={
                                         <ChartTooltipContent
-                                        className="flex flex-col bg-green-500 h-[50%]"
+                                        className="flex flex-col bg-blue-600"
                                             labelFormatter={(value) => {
                                                 const dateValue = typeof value === 'string' ? parseISO(value) : new Date(value);
                                                 return format(dateValue, 'dd/MM/yyyy', { locale: ptBR });
