@@ -34,12 +34,13 @@ export default function Home() {
           <LancamentosTable />
       </div>
 
-      <div className="flex flex-col md:flex-row gap-5 mb-2 mt-2">
+      {/* <div className="flex flex-col md:flex-row gap-5 mb-2 mt-2"> */}
+      <div className="flex mb-2 mt-2">
         
         <div className="flex-1 min-w-[46%]">
           <DailyEntriesBarChart />
         </div>
-        <div className="flex-1 min-w-[46%]">
+        <div className="flex-1 min-w-[46%] hidden">
           <TotalRevenueRadialChart />
         </div>
       </div>
