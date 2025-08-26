@@ -150,7 +150,7 @@ export function DailyEntriesBarChart() {
     }, [chartData]);
 
     return (
-        <Card className="h-fit mb-3 flex flex-col">
+        <Card className="h-full mb-3 flex flex-col">
             <CardHeader className="flex flex-row justify-between items-start pb-0">
                 <div className="grid flex-1 gap-1">
                     <CardTitle>Entradas Diárias</CardTitle>
@@ -227,7 +227,7 @@ export function DailyEntriesBarChart() {
                                     <LabelList
                                         position="top"
                                         offset={12}
-                                        className="fill-foreground"
+                                        className="fill-foreground !hidden"
                                         fontSize={12}
                                         formatter={(value: any) => formatCurrency(value)}
                                     />
