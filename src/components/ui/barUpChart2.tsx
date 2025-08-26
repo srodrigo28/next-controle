@@ -206,7 +206,7 @@ export function DailyEntriesBarChart() {
                                     cursor={false}
                                     content={
                                         <ChartTooltipContent
-                                        className="flex flex-col bg-green-500 h-[60%]"
+                                        className="flex flex-col bg-green-500 h-[50%]"
                                             labelFormatter={(value) => {
                                                 const dateValue = typeof value === 'string' ? parseISO(value) : new Date(value);
                                                 return format(dateValue, 'dd/MM/yyyy', { locale: ptBR });
