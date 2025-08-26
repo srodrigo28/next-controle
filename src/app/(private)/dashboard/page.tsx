@@ -30,7 +30,7 @@ export default function Home() {
         
       </div>
 
-      <div className="flex-1 min-w-[100%] mx-auto">
+      <div className="flex-1 min-w-[100%] mx-auto mt-2">
           <LancamentosTable />
       </div>
 
