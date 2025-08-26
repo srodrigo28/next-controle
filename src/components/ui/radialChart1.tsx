@@ -163,7 +163,7 @@ export function TotalRevenueRadialChart() {
                                 polarRadius={[86, 74]}
                             />
                             {/* dataKey="value" porque é onde o valor total está no chartData */}
-                            <RadialBar dataKey="value" fill={chartConfig.revenue.color} background />
+                            <RadialBar dataKey="value" className="p-10" fill={chartConfig.revenue.color} background />
                             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
                                 <Label
                                     content={({ viewBox }) => {
