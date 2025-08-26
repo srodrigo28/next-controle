@@ -238,8 +238,8 @@ export function LancamentosTable() {
                             <TableHeader className="sticky top-0 bg-slate-800 z-10">
                                 <TableRow>
                                     <TableHead className="text-white whitespace-nowrap">Data</TableHead> {/* whitespace-nowrap evita quebra de linha */}
-                                    <TableHead className="text-white whitespace-nowrap hidden">Descrição</TableHead>
-                                    <TableHead className="text-white whitespace-nowrap hidden">Categoria</TableHead>
+                                    <TableHead className="text-white whitespace-nowrap !hidden">Descrição</TableHead>
+                                    <TableHead className="text-white whitespace-nowrap !hidden">Categoria</TableHead>
                                     <TableHead className="text-white whitespace-nowrap">Tipo</TableHead>
                                     <TableHead className="text-right text-white whitespace-nowrap">Valor</TableHead>
                                     <TableHead className="text-right text-white whitespace-nowrap">Ações</TableHead>
@@ -249,8 +249,8 @@ export function LancamentosTable() {
                                 {lancamentos.map((lancamento) => (
                                     <TableRow key={lancamento.id} className="hover:bg-slate-700 transition-colors duration-200">
                                         <TableCell className="font-medium text-gray-300 whitespace-nowrap">{format(new Date(lancamento.data), 'dd/MM/yyyy', { locale: ptBR })}</TableCell>
-                                        <TableCell className="text-gray-300 whitespace-nowrap hidden">{lancamento.descricao}</TableCell>
-                                        <TableCell className="text-gray-300 whitespace-nowrap hidden">{lancamento.categoria}</TableCell>
+                                        <TableCell className="text-gray-300 whitespace-nowrap !hidden">{lancamento.descricao}</TableCell>
+                                        <TableCell className="text-gray-300 whitespace-nowrap !hidden">{lancamento.categoria}</TableCell>
                                         <TableCell className={`font-semibold ${lancamento.tipo === 'receita' ? 'text-green-400' : 'text-red-400'} whitespace-nowrap`}>
                                             {lancamento.tipo === 'receita' ? 'Receita' : 'Despesa'}
                                         </TableCell>
