@@ -150,7 +150,7 @@ export function DailyEntriesBarChart() {
     }, [chartData]);
 
     return (
-        <Card className="h-[30rem] mb-2 flex flex-col">
+        <Card className="h-[37rem] mb-2 flex flex-col">
             <CardHeader className="flex flex-row justify-between items-start pb-0">
                 <div className="grid flex-1 gap-1">
                     <CardTitle className="text-sm md:text-xl">Entradas Diárias</CardTitle>
