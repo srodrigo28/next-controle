@@ -43,7 +43,7 @@ interface DailyChartDataItem {
 // Configuração do gráfico  
 const chartConfig = { /*** comentar aqui */
     entrada: {
-        label: "Entradas Diárias",
+        label: " Entradas Diárias",
         color: "var(--chart-1)", // Usando a primeira cor do shadcn/ui chart
     },
 } satisfies ChartConfig;
@@ -206,6 +206,7 @@ export function DailyEntriesBarChart() {
                                     cursor={false}
                                     content={
                                         <ChartTooltipContent
+                                        className="flex flex-col bg-amber-500"
                                             labelFormatter={(value) => {
                                                 const dateValue = typeof value === 'string' ? parseISO(value) : new Date(value);
                                                 return format(dateValue, 'dd/MM/yyyy', { locale: ptBR });
