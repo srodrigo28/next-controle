@@ -150,7 +150,7 @@ export function DailyEntriesBarChart() {
     }, [chartData]);
 
     return (
-        <Card className="h-[30rem] flex flex-col">
+        <Card className="h-fit mb-3 flex flex-col">
             <CardHeader className="flex flex-row justify-between items-start pb-0">
                 <div className="grid flex-1 gap-1">
                     <CardTitle>Entradas Diárias</CardTitle>
@@ -178,7 +178,7 @@ export function DailyEntriesBarChart() {
                             <BarChart
                                 accessibilityLayer
                                 data={chartData}
-                                className="bg-red-500 h-[80%]"
+                                className="h-[80%]"
                                 margin={{
                                     top: 10,
                                     right: 0,
