@@ -249,8 +249,8 @@ export function LancamentosTable() {
                                 {lancamentos.map((lancamento) => (
                                     <TableRow key={lancamento.id} className="hover:bg-slate-700 transition-colors duration-200">
                                         <TableCell className="font-medium text-gray-300 whitespace-nowrap">{format(new Date(lancamento.data), 'dd/MM/yyyy', { locale: ptBR })}</TableCell>
-                                        <TableCell className="text-gray-300 whitespace-nowrap">{lancamento.descricao}</TableCell>
-                                        <TableCell className="text-gray-300 whitespace-nowrap">{lancamento.categoria}</TableCell>
+                                        <TableCell className="text-gray-300 whitespace-nowrap hidden md:block">{lancamento.descricao}</TableCell>
+                                        <TableCell className="text-gray-300 whitespace-nowrap hidden md:block">{lancamento.categoria}</TableCell>
                                         <TableCell className={`font-semibold ${lancamento.tipo === 'receita' ? 'text-green-400' : 'text-red-400'} whitespace-nowrap`}>
                                             {lancamento.tipo === 'receita' ? 'Receita' : 'Despesa'}
                                         </TableCell>
