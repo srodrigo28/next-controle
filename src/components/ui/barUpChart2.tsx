@@ -178,6 +178,7 @@ export function DailyEntriesBarChart() {
                             <BarChart
                                 accessibilityLayer
                                 data={chartData}
+                                className="bg-red-500"
                                 margin={{
                                     top: 20,
                                     right: 0,
@@ -226,7 +227,7 @@ export function DailyEntriesBarChart() {
                                     <LabelList
                                         position="top"
                                         offset={12}
-                                        className="fill-foreground hidden"
+                                        className="fill-foreground"
                                         fontSize={12}
                                         formatter={(value: any) => formatCurrency(value)}
                                     />
