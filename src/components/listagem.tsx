@@ -238,7 +238,7 @@ export function LancamentosTable() {
                             <TableHeader className="sticky top-0 bg-slate-800 z-10">
                                 <TableRow>
                                     <TableHead className="text-white whitespace-nowrap">Data</TableHead> {/* whitespace-nowrap evita quebra de linha */}
-                                    <TableHead className="text-white whitespace-nowrap">Descrição</TableHead>
+                                    <TableHead className="text-white whitespace-nowrap">Descrição!</TableHead>
                                     <TableHead className="text-white whitespace-nowrap">Categoria</TableHead>
                                     <TableHead className="text-white whitespace-nowrap">Tipo</TableHead>
                                     <TableHead className="text-right text-white whitespace-nowrap">Valor</TableHead>
