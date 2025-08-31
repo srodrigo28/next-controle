@@ -1,5 +1,8 @@
 #### Exemplos com NextJS 15 + ShadCN-UI
 
+* Nextjs
+* Supbase
+
 <img src="./preview/grafico-web.png" alt="">
 <img src="./preview/grafic-v1.png" alt="">
 <img src="./preview/grafic-v2.png" alt="">
